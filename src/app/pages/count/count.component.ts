@@ -1,12 +1,19 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 
 @Component({
   selector: 'app-count',
   imports: [],
   templateUrl: './count.component.html',
-  styleUrl: './count.component.css'
+  styleUrl: './count.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CountComponent {
+
+  constructor() {
+    // setInterval(() => {
+    //   this.increment();
+    // }, 2000);
+  }
 
   countSignal = signal(0);
 
