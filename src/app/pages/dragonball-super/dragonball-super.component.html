@@ -2,37 +2,13 @@
 <hr>
 <section class="row">
   <div class="col-12 col-sm-6">
-    <h3>Agregar</h3>
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Nombre"
-      (change)="addName(txtName.value)"
-      #txtName
-      >
-    <input
-      type="text"
-      class="form-control mt-2"
-      placeholder="Poder"
-      (change)="addPower(txtPower.value)"
-      #txtPower
-      >
-    <button class="btn btn-primary mt-2" (click)="addNewCharacter()">Agregar</button>
+    <add-add-character-list (newCharcter)="addCharacter($event)"/>
   </div>
   <div class="col-12 col-sm-6">
-    <h3>Personajes</h3>
-    <ul class="list-group">
-      @for (char of character(); track $index) {
-        @if(char.power !== 'Namekian'){
-          <li class="list-group-item">
-            {{ char.name }} - <span [class.colorPower]="char.power === 'Super Saiyan'">{{ char.power }}</span>
-            <button
-              (click)="deleteCharacter(char.name)"
-              class="btn btn-danger btn-sm float-end"
-            >Eliminar</button>
-          </li>
-        }
-      }
-    </ul>
+    <dragonball-character-list
+      [character]="character()"
+      lisName="Los mejores Super Heroes"
+
+     />
   </div>
 </section>

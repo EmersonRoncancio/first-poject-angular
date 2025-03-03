@@ -1,4 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { CharacterListComponent } from '../../components/dragonball/character-list/character-list.component';
+import { AddCharacterListComponent } from "../../components/dragonball/add-character-list/add-character-list.component";
+import { DragonballService } from '../../services/dragonball.service';
 
 interface Character {
   name: string;
@@ -7,50 +10,16 @@ interface Character {
 
 @Component({
   selector: 'app-dragonball-super',
-  imports: [],
+  imports: [CharacterListComponent, AddCharacterListComponent],
   templateUrl: './dragonball-super.component.html',
   styleUrl: './dragonball-super.component.css'
 })
 export class DragonballSuperComponent {
 
-  name = signal<string>('');
-  power = signal<string>('');
+  public dragonBallService = inject(DragonballService)
+  public character = this.dragonBallService.character
 
-  character = signal<Character[]>([
-    {name: 'Goku', power: 'Super Saiyan'},
-    {name: 'Vegeta', power: 'Super Saiyan'},
-    {name: 'Gohan', power: 'Super Saiyan'},
-  ])
-
-  addCharacter(name: string, power: string){
-    this.character.update(charcter=> [...charcter, {name, power}])
-  }
-
-  deleteCharacter(name: string){
-    this.character.update((character)=> character.filter((char)=> char.name !== name))
-  }
-
-  addName(value: string){
-    this.name.set(value);
-  }
-
-  addPower(value: string){
-    this.power.set(value);
-  }
-
-  addNewCharacter(){
-    if(!this.name() || !this.power()){
-      return
-    }
-
-    this.character.update(char=> [...char, {
-      name: this.name(),
-      power: this.power()
-    }])
-
-    this.name.set('')
-    this.power.set('')
-
-    console.log(this.character())
+  addCharacter(chacaterUpdate: Character){
+    this.dragonBallService.addCharacter(chacaterUpdate)
   }
 }

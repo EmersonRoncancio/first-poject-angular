@@ -1,0 +1,14 @@
+<h3>Personajes</h3>
+<ul class="list-group">
+  @for (char of character(); track $index) {
+    @if(char.power !== 'Namekian'){
+      <li class="list-group-item">
+        {{ char.name }} - <span [class.colorPower]="char.power === 'Super Saiyan'">{{ char.power }}</span>
+        <button
+          (click)="deleteCharacter(char.name)"
+          class="btn btn-danger btn-sm float-end"
+        >Eliminar</button>
+      </li>
+    }
+  }
+</ul>
